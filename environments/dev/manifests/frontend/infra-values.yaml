@@ -3,7 +3,7 @@
 
 image:
   repository: "864546685796.dkr.ecr.us-east-1.amazonaws.com/project-6-dev-welcome"
-  digest: "sha256:YOUR_SHA1"
+  digest: "sha256:YOUR_SHA"
   tag: ""
   pullPolicy: Always
 
