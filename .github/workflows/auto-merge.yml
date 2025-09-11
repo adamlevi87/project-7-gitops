@@ -1,9 +1,16 @@
 # .github/workflows/auto-merge.yml
 
 name: Auto-merge Infrastructure PRs
+
 on:
   repository_dispatch:
     types: [auto-merge-pr]
+
+# IMPORTANT: Add proper permissions for PR merging
+permissions:
+  contents: write        # Required to merge PRs
+  pull-requests: write   # Required to manage PRs
+  actions: read          # Standard read access
 
 jobs:
   auto-merge:
@@ -16,6 +23,6 @@ jobs:
             --squash \
             --delete-branch
         env:
-          # Built in github token that gives permissions to the workflow
-          # over the repo its running from
+          # Use GitHub token with enhanced permissions
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
