@@ -1,0 +1,21 @@
+# .github/workflows/auto-merge.yml
+
+name: Auto-merge Infrastructure PRs
+on:
+  repository_dispatch:
+    types: [auto-merge-pr]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-merge PR
+        run: |
+          gh pr merge ${{ github.event.client_payload.pr_number }} \
+            --repo ${{ github.repository }} \
+            --squash \
+            --delete-branch
+        env:
+          # Built in github token that gives permissions to the workflow
+          # over the repo its running from
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
