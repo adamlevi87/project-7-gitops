@@ -1,3 +1,6 @@
+# Frontend application yaml
+# This file is created once during bootstrap and maintained in Git
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -20,11 +23,12 @@ spec:
   sources:
     - repoURL: https://github.com/adamlevi87/project-6-app.git    # chart source
       targetRevision: main
-      path: local/helm/base-app/generic/
+      path: helm/
       helm:
         releaseName: frontend
         valueFiles:
           - $values/environments/dev/manifests/frontend/infra-values.yaml          # <-- infrastructure values (Terraform)
+          - $values/environments/dev/manifests/frontend/digest-values.yaml         # <-- digest values (Application Repo)
           - $values/environments/dev/manifests/frontend/app-values.yaml            # <-- application values (static)
     - repoURL: https://github.com/adamlevi87/project-6-gitops.git     # values source
       targetRevision: main

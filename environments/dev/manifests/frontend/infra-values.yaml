@@ -1,9 +1,9 @@
 # Frontend infrastructure values - managed by Terraform
-# digest is managed by the application repo workflow (build-and-push action or update-digest-only)
+# this is missing the version (digest) - saved in infra-values.yaml file & handled by
+# the application repo (build & push and update digest)
 
 image:
   repository: "864546685796.dkr.ecr.us-east-1.amazonaws.com/project-6-dev-welcome"
-  digest: "sha256:YOUR_SHA123"
   tag: ""
   pullPolicy: Always
 
