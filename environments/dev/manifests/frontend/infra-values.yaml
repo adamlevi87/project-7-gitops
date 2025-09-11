@@ -1,0 +1,40 @@
+# Frontend infrastructure values - managed by Terraform
+# digest is managed by the application repo workflow (build-and-push action or update-digest-only)
+
+image:
+  repository: "864546685796.dkr.ecr.us-east-1.amazonaws.com/project-6-dev-welcome"
+  digest: "sha256:YOUR_SHA"
+  tag: ""
+  pullPolicy: Always
+
+namespace:
+  name: frontend
+  create: false
+
+service:
+  type: "ClusterIP"
+  port: 80
+
+serviceAccount:
+  create: false
+  name: frontend-sa
+
+containerPort: 80
+
+ingress:
+  enabled: true
+  host: "frontend-app.project-6.projects-devops.cfd"
+  ingressControllerClassResourceName: "alb"
+  ingressPath: "/"
+  annotations:
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/target-type: "ip"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/group.name: "project-6-dev-alb-shared-group"
+    #SG list order argo,frontend
+    alb.ingress.kubernetes.io/security-groups: "sg-064d9b9840c94b640,sg-0bc545eda97545fe2"
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:864546685796:certificate/0c314bf4-3f6e-4c08-9eb9-cd5a9ae6e064"
+    # External DNS annotation (optional - helps external-dns identify the record)
+    external-dns.alpha.kubernetes.io/hostname: "frontend-app.project-6.projects-devops.cfd"
+
