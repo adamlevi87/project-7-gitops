@@ -16,13 +16,65 @@ jobs:
   auto-merge:
     runs-on: ubuntu-latest
     steps:
+      - name: Validate Input
+        run: |
+          if [ -z "${{ github.event.client_payload.pr_number }}" ]; then
+            echo "❌ ERROR: PR number not provided in payload"
+            exit 1
+          fi
+          echo "PR Number: ${{ github.event.client_payload.pr_number }}"
+
+      - name: Wait for PR to be ready
+        run: |
+          echo "⏳ Waiting for PR to be in mergeable state..."
+          PR_NUMBER="${{ github.event.client_payload.pr_number }}"
+          
+          for i in {1..30}; do
+            PR_STATUS=$(gh pr view $PR_NUMBER --json mergeable,mergeStateStatus --jq '{mergeable: .mergeable, status: .mergeStateStatus}')
+            echo "Attempt $i: $PR_STATUS"
+            
+            MERGEABLE=$(echo "$PR_STATUS" | jq -r '.mergeable')
+            STATUS=$(echo "$PR_STATUS" | jq -r '.status')
+            
+            if [ "$MERGEABLE" = "MERGEABLE" ] && [ "$STATUS" = "CLEAN" ]; then
+              echo "✅ PR is ready to merge"
+              break
+            fi
+            
+            if [ $i -eq 30 ]; then
+              echo "⚠️  PR not ready after 5 minutes, proceeding anyway"
+              break
+            fi
+            
+            sleep 10
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Auto-merge PR
         run: |
-          gh pr merge ${{ github.event.client_payload.pr_number }} \
+          PR_NUMBER="${{ github.event.client_payload.pr_number }}"
+          
+          echo "🔀 Merging PR #$PR_NUMBER"
+          gh pr merge $PR_NUMBER \
             --repo ${{ github.repository }} \
             --squash \
-            --delete-branch
-        env:
-          # Use GitHub token with enhanced permissions
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            --delete-branch \
+            || {
+              echo "❌ Failed to merge PR #$PR_NUMBER"
+              echo "PR Status:"
+              gh pr view $PR_NUMBER --json title,state,mergeable,mergeStateStatus
+              exit 1
+            }
           
+          echo "✅ Successfully merged PR #$PR_NUMBER"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## 🔀 Auto-merge Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR Number**: #${{ github.event.client_payload.pr_number }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Repository**: ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
