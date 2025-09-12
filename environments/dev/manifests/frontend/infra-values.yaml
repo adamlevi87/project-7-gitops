@@ -33,7 +33,7 @@ ingress:
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/group.name: "project-6-dev-alb-shared-group"
     #SG list order argo,frontend
-    alb.ingress.kubernetes.io/security-groups: "sg-064d9b9840c94b640,sg-0bc545eda97545fe2"
+    alb.ingress.kubernetes.io/security-groups: "sg-03f9e6e9d180f9362,sg-03451890408ffb8ef"
     alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:864546685796:certificate/0c314bf4-3f6e-4c08-9eb9-cd5a9ae6e064"
     # External DNS annotation (optional - helps external-dns identify the record)
     external-dns.alpha.kubernetes.io/hostname: "frontend-app.project-6.projects-devops.cfd"
