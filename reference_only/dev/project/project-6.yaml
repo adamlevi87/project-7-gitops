@@ -1,4 +1,4 @@
-## reference_only/dev/apps/project-6.yaml
+# reference_only/dev/apps/project-6.yaml
 # ⚠️  WARNING: THIS IS A REFERENCE COPY ONLY! ⚠️  
 #
 # The REAL Project is managed by Terraform (via argocd's helm installation)
