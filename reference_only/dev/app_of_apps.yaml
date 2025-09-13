@@ -1,4 +1,4 @@
-## reference_only/dev/apps/app_of_apps.yaml
+# reference_only/dev/apps/app_of_apps.yaml
 # ⚠️  WARNING: THIS IS A REFERENCE COPY ONLY! ⚠️  
 #
 # The REAL App of Apps is managed by Terraform (via argocd's helm installation)
