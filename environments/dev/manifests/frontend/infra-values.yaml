@@ -1,4 +1,4 @@
-## Frontend infrastructure values - managed by Terraform
+# Frontend infrastructure values - managed by Terraform
 # this is missing the version (digest) - saved in infra-values.yaml file & handled by
 # the application repo (build & push and update digest)
 
@@ -37,5 +37,4 @@ ingress:
     alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:864546685796:certificate/0c314bf4-3f6e-4c08-9eb9-cd5a9ae6e064"
     # External DNS annotation (optional - helps external-dns identify the record)
     external-dns.alpha.kubernetes.io/hostname: "frontend-app.project-6.projects-devops.cfd"
-
 
