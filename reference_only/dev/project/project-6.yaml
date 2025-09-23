@@ -1,4 +1,4 @@
-# reference_only/dev/apps/project-6.yaml
+# reference_only/dev/apps/project-7.yaml
 # ⚠️  WARNING: THIS IS A REFERENCE COPY ONLY! ⚠️  
 #
 # The REAL Project is managed by Terraform (via argocd's helm installation)
@@ -13,13 +13,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: project-6
+  name: project-7
   namespace: argocd
 spec:
-  description: project-6 apps and infra
+  description: project-7 apps and infra
   sourceRepos:
-    - https://github.com/adamlevi87/project-6-gitops.git
-    - https://github.com/adamlevi87/project-6-app.git
+    - https://github.com/adamlevi87/project-7-gitops.git
+    - https://github.com/adamlevi87/project-7-app.git
   destinations:
     - namespace: '*'
       server: https://kubernetes.default.svc

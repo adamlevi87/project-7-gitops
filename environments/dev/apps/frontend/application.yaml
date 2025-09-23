@@ -10,7 +10,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
     argocd.argoproj.io/refresh: hard
 spec:
-  project: project-6
+  project: project-7
   destination:
     server: https://kubernetes.default.svc
     namespace: frontend
@@ -28,7 +28,7 @@ spec:
       - CreateNamespace=true
   # Multi-source: CHART comes from app repo; VALUES come from gitops repo via ref
   sources:
-    - repoURL: https://github.com/adamlevi87/project-6-app.git    # chart source
+    - repoURL: https://github.com/adamlevi87/project-7-app.git    # chart source
       targetRevision: main
       path: helm/
       helm:
@@ -37,6 +37,6 @@ spec:
           - $values/environments/dev/manifests/frontend/infra-values.yaml          # <-- infrastructure values (Terraform)
           - $values/environments/dev/manifests/frontend/digest-values.yaml         # <-- digest values (Application Repo)
           - $values/environments/dev/manifests/frontend/app-values.yaml            # <-- application values (static)
-    - repoURL: https://github.com/adamlevi87/project-6-gitops.git     # values source
+    - repoURL: https://github.com/adamlevi87/project-7-gitops.git     # values source
       targetRevision: main
       ref: values

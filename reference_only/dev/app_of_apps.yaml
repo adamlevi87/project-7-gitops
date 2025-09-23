@@ -13,15 +13,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: project-6-app-of-apps-dev
+  name: project-7-app-of-apps-dev
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-10"
     argocd.argoproj.io/refresh: hard
 spec:
-  project: project-6
+  project: project-7
   source:
-    repoURL: https://github.com/adamlevi87/project-6-gitops.git
+    repoURL: https://github.com/adamlevi87/project-7-gitops.git
     path: environments/dev/apps
     targetRevision: main
     directory:

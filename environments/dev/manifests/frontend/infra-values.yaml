@@ -3,7 +3,7 @@
 # the application repo (build & push and update digest)
 
 image:
-  repository: "864546685796.dkr.ecr.us-east-1.amazonaws.com/project-6-dev-welcome"
+  repository: "864546685796.dkr.ecr.us-east-1.amazonaws.com/project-7-dev-welcome"
   tag: ""
   pullPolicy: Always
 
@@ -23,7 +23,7 @@ containerPort: 80
 
 ingress:
   enabled: true
-  host: "frontend-app.project-6.projects-devops.cfd"
+  host: "frontend-app.project-7.projects-devops.cfd"
   ingressControllerClassResourceName: "alb"
   ingressPath: "/"
   annotations:
@@ -31,10 +31,10 @@ ingress:
     alb.ingress.kubernetes.io/target-type: "ip"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
     alb.ingress.kubernetes.io/ssl-redirect: "443"
-    alb.ingress.kubernetes.io/group.name: "project-6-dev-alb-shared-group"
+    alb.ingress.kubernetes.io/group.name: "project-7-dev-alb-shared-group"
     #SG list order argo,frontend
     alb.ingress.kubernetes.io/security-groups: "sg-0e7f49a5d38e22c88,sg-044b1ad89153066d1,sg-0c6bfaae9664a4150,sg-05c9062f71c448c13"
     alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:864546685796:certificate/c1db602d-f655-4d44-b39c-2d0db7446bf7"
     # External DNS annotation (optional - helps external-dns identify the record)
-    external-dns.alpha.kubernetes.io/hostname: "frontend-app.project-6.projects-devops.cfd"
+    external-dns.alpha.kubernetes.io/hostname: "frontend-app.project-7.projects-devops.cfd"
 
