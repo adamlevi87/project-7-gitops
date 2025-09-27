@@ -22,7 +22,7 @@ spec:
   project: project-7
   source:
     repoURL: https://github.com/adamlevi87/project-7-gitops.git
-    path: environments/dev/apps
+    path: apps
     targetRevision: dev
     directory:
       recurse: true
