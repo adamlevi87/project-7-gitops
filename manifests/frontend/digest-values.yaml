@@ -1,0 +1,5 @@
+## Frontend digest values
+# managed by the application repo workflow (build-and-push action or update-digest-only)
+
+image:
+  digest: "sha256:938e8b79364a0fbb51ef185f153537737ec451c7549f0afd16dee425bdd56b17"
