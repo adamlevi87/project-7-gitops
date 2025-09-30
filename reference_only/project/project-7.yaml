@@ -33,8 +33,6 @@ spec:
     - group: ""
       kind: Secret
     - group: ""
-      kind: Namespace  
-    - group: ""
       kind: ServiceAccount
     - group: networking.k8s.io
       kind: Ingress
@@ -46,6 +44,8 @@ spec:
       kind: "Application"
     - group: "autoscaling"
       kind: "HorizontalPodAutoscaler"
-  clusterResourceWhitelist: []
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
   orphanedResources:
     warn: true

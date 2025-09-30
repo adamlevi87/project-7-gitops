@@ -10,7 +10,8 @@ image:
 namespace:
   name: frontend
   create: true
-
+  annotations:
+      argocd.argoproj.io/sync-wave: "-3"
 service:
   type: "ClusterIP"
   port: 80
@@ -19,6 +20,7 @@ serviceAccount:
   create: true
   name: frontend-sa
   annotations:
+    argocd.argoproj.io/sync-wave: "-2"
     eks.amazonaws.com/role-arn: arn:aws:iam::864546685796:role/project-7-dev-frontend-sa-irsa-role
 
 containerPort: 3000
@@ -43,5 +45,14 @@ ingress:
 # In infra-values.yaml or app-values.yaml
 cosign:
   enabled: true
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  backoffLimit: 3
+  awsRegion: us-east-1
+  attachmentTagPrefix: "SIGNATURE-"
+  images:
+    awsCli: "amazon/aws-cli:latest"
+    docker: "docker:27-cli" 
+    cosign: "gcr.io/projectsigstore/cosign:v2.6.0"
   certificateIdentity: "https://github.com/adamlevi87/project-7-app"
   oidcIssuer: "https://token.actions.githubusercontent.com"
