@@ -9,15 +9,17 @@ image:
 
 namespace:
   name: frontend
-  create: false
+  create: true
 
 service:
   type: "ClusterIP"
   port: 80
 
 serviceAccount:
-  create: false
+  create: true
   name: frontend-sa
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::864546685796:role/project-7-dev-frontend-sa-irsa-role
 
 containerPort: 3000
 
@@ -33,7 +35,7 @@ ingress:
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/group.name: "project-7-dev-alb-shared-group"
     #SG list order argo,frontend
-    alb.ingress.kubernetes.io/security-groups: "sg-0069e476c27f2dbdc,sg-06934ddda7f614962,sg-09f4969f8c8dba9eb,sg-07922f1689541612b"
+    alb.ingress.kubernetes.io/security-groups: "sg-09330b15c7026a940,sg-031adfbb3fd2a85d1,sg-0b819e1096d129d09,sg-06765f068ba0e3b0e"
     alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:864546685796:certificate/c1807bb1-26af-49ed-8f6c-28ae3f0016b2"
     # External DNS annotation (optional - helps external-dns identify the record)
     external-dns.alpha.kubernetes.io/hostname: "frontend-app.project-7.projects-devops.cfd"
