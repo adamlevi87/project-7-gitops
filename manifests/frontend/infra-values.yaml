@@ -9,17 +9,19 @@ image:
 
 namespace:
   name: frontend
-  create: false
+  create: true
 
 service:
   type: "ClusterIP"
   port: 80
 
 serviceAccount:
-  create: false
+  create: true
   name: frontend-sa
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::864546685796:role/project-7-dev-frontend-sa-irsa-role
 
-containerPort: 80
+containerPort: 3000
 
 ingress:
   enabled: true
