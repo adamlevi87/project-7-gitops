@@ -116,12 +116,20 @@ Terraform Apply → Infrastructure Values Update → GitOps PR → ArgoCD Sync �
 Identify Previous Digest → Manual GitOps PR → Merge → ArgoCD Sync → Previous Version Deployed
 ```
 
+**Alternative: Application Repository Rollback**
+```
+Manual → Application Deploy (action=update-digest-only, target_digest=PREVIOUS_SHA256) → GitOps PR → ArgoCD Sync
+```
+*Using the [project-7-app](https://github.com/adamlevi87/project-7-app) `update-digest-only` action to rollback to a specific image digest*
+
 ## Security & Compliance
 
 ### **GitOps Security Model**
-- **Read-only cluster access** for ArgoCD
-- **Git-based audit trail** for all deployment changes
-- **RBAC integration** with GitHub teams and organizations
+- **Read-only cluster access** - ArgoCD can only read from Git repositories and apply changes; it cannot modify source code or Git history
+- **Git-based audit trail** - All deployment changes are recorded as Git commits with author, timestamp, and change details
+- **RBAC integration** - ArgoCD permissions are mapped to GitHub teams (configured via Terraform):
+  - `github_admin_team` → Full ArgoCD admin access
+  - `github_readonly_team` → Read-only ArgoCD access
 - **Signed commits** and PR-based change approval
 
 ### **Image Security**
